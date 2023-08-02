@@ -1,0 +1,12 @@
+[versions]
+kotlin = "1.8.0"
+
+[libraries]
+android-gradle-api = "com.android.tools.build:gradle-api:8.1.0"
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+[plugins]
+# Keep at Gradle compatible version
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-dsl = "org.gradle.kotlin.kotlin-dsl:4.0.7"
+spotless = "com.diffplug.spotless:6.19.0"
