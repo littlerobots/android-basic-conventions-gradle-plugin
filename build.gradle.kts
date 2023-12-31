@@ -29,7 +29,7 @@ gradlePlugin {
       displayName = "Sets up basic conventions for Android projects"
       description =
           "Sets up basic conventions for Android projects, such as target sdk and Kotlin/Java versions"
-      tags = listOf("Android", "conventions")
+      tags = setOf("Android", "conventions")
     }
   }
 }

@@ -8,9 +8,9 @@ android-gradle-api = "com.android.tools.build:gradle-api:8.1.0"
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 [plugins]
+gradle-publish = "com.gradle.plugin-publish:1.2.1"
 # @pin to keep in sync with Gradle version
 kotlin-dsl = "org.gradle.kotlin.kotlin-dsl:4.2.1"
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 spotless = "com.diffplug.spotless:6.23.3"
 versionCatalogUpdate = "nl.littlerobots.version-catalog-update:0.8.3"
-gradle-publish = "com.gradle.plugin-publish:1.0.0"
