@@ -4,8 +4,7 @@ This is an experimental plugin to configure Android projects with common configu
 It is meant for small projects that are in between needing their own convention plugins vs duplicating Android, Kotlin and JVM
 Gradle configuration in various modules.
 
-This has hardly been tested, it probably doesn't work in KMP projects and is not published to any repository. Use at your
-own risk!
+It has been tested lightly with simple projects only, your mileage might vary.
 
 ## Setup
 1. Apply this plugin `nl.littlerobots.android-basic-conventions` to your root `build.gradle` file.
