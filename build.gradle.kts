@@ -20,7 +20,7 @@ kotlin { jvmToolchain(17) }
 
 gradlePlugin {
   website = "https://github.com/littlerobots/android-basic-conventions-gradle-plugin"
-  vcsUrl = "git@github.com:littlerobots/android-basic-conventions-gradle-plugin.git"
+  vcsUrl = "https://github.com/littlerobots/android-basic-conventions-gradle-plugin.git"
 
   plugins {
     register("basicAndroidConventions") {
