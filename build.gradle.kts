@@ -5,7 +5,6 @@ plugins {
   alias(libs.plugins.spotless)
   alias(libs.plugins.versionCatalogUpdate)
   alias(libs.plugins.gradle.publish)
-  signing
 }
 
 group = "nl.littlerobots"
@@ -32,17 +31,6 @@ gradlePlugin {
           "Sets up basic conventions for Android projects, such as target sdk and Kotlin/Java versions"
       tags = listOf("Android", "conventions")
     }
-  }
-}
-
-signing {
-  val signingKey = findProperty("SIGNING_KEY") as? String
-  val signingPassword = findProperty("SIGNING_PASSWORD") as? String
-  val signingKeyId = findProperty("SIGNING_KEY_ID") as? String
-  if (signingKey != null && signingPassword != null && signingKeyId != null) {
-    useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
-  } else {
-    useGpgCmd()
   }
 }
 
