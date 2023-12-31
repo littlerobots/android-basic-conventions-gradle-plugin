@@ -19,6 +19,7 @@ import com.android.build.api.dsl.ApplicationDefaultConfig
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
+import kotlin.jvm.optionals.getOrNull
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -31,7 +32,6 @@ import org.gradle.kotlin.dsl.findByType
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
-import kotlin.jvm.optionals.getOrNull
 
 class AndroidBasicConventionsPlugin : Plugin<Project> {
   override fun apply(target: Project) {
