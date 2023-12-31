@@ -19,8 +19,6 @@ import com.android.build.api.dsl.ApplicationDefaultConfig
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
-import java.lang.IllegalStateException
-import kotlin.jvm.optionals.getOrNull
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -33,6 +31,7 @@ import org.gradle.kotlin.dsl.findByType
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
+import kotlin.jvm.optionals.getOrNull
 
 class AndroidBasicConventionsPlugin : Plugin<Project> {
   override fun apply(target: Project) {
@@ -55,7 +54,7 @@ class AndroidBasicConventionsPlugin : Plugin<Project> {
   }
 
   private fun configureKotlin(target: Project, extension: AndroidBasicConventionsExtension) {
-    val jvmTarget = extension.jvmTarget.convention(JavaVersion.VERSION_1_8).get()
+    val jvmTarget = extension.jvmTargetWithDefault
     if (target.extensions.findByType<KotlinProjectExtension>() != null) {
       target.extensions.configure<KotlinProjectExtension> {
         jvmToolchain(jvmTarget.majorVersion.toInt())
@@ -87,9 +86,7 @@ class AndroidBasicConventionsPlugin : Plugin<Project> {
     }
     target.plugins.withId("com.android.library") {
       target.extensions.configure<LibraryExtension> {
-        target.extensions.configure<ApplicationExtension> {
-          configureAndroidExtension(target, this, extension)
-        }
+        configureAndroidExtension(target, this, extension)
       }
     }
   }
