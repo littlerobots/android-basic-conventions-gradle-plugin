@@ -1,3 +1,4 @@
+[![gradlePluginPortal](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/nl/littlerobots/android-basic-conventions/nl.littlerobots.android-basic-conventions.gradle.plugin/maven-metadata.xml.svg?label=gradlePluginPortal)](https://plugins.gradle.org/plugin/nl.littlerobots.android-basic-conventions)
 # Android basic conventions (ABC) plugin
 
 This is an experimental plugin to configure Android projects with common configuration.
