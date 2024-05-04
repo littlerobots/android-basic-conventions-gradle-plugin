@@ -30,8 +30,9 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.findByType
 import org.gradle.kotlin.dsl.getByType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
-import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
 class AndroidBasicConventionsPlugin : Plugin<Project> {
   override fun apply(target: Project) {
@@ -55,14 +56,18 @@ class AndroidBasicConventionsPlugin : Plugin<Project> {
 
   private fun configureKotlin(target: Project, extension: AndroidBasicConventionsExtension) {
     val jvmTarget = extension.jvmTargetWithDefault
-    if (target.extensions.findByType<KotlinProjectExtension>() != null) {
-      target.extensions.configure<KotlinProjectExtension> {
-        jvmToolchain(jvmTarget.majorVersion.toInt())
+    if (target.extensions.findByType<KotlinJvmProjectExtension>() != null) {
+      target.extensions.configure<KotlinJvmProjectExtension> {
+        compilerOptions {
+          this.jvmTarget.set(JvmTarget.fromTarget(jvmTarget.majorVersion))
+          freeCompilerArgs.add("-Xjdk-release=${jvmTarget.toJvmTarget.target}")
+        }
       }
     }
     if (target.extensions.findByName("kotlinOptions") != null) {
       target.extensions.configure<KotlinJvmOptions>("kotlinOptions") {
         freeCompilerArgs += extension.kotlinOptions.freeCompilerArgs
+        this.jvmTarget = jvmTarget.toJvmTarget.target
       }
     }
   }
@@ -103,6 +108,8 @@ class AndroidBasicConventionsPlugin : Plugin<Project> {
             .getOrNull()
             ?.findVersion("compose-compiler")
 
+    val jvmTarget = extension.jvmTargetWithDefault
+
     with(android) {
       compileSdk = extension.compileSdk.orNull
       defaultConfig {
@@ -119,6 +126,8 @@ class AndroidBasicConventionsPlugin : Plugin<Project> {
 
       (android as ExtensionAware).extensions.configure<KotlinJvmOptions>("kotlinOptions") {
         freeCompilerArgs += extension.kotlinOptions.freeCompilerArgs
+        // there must be a better way?
+        this.jvmTarget = jvmTarget.toJvmTarget.target
       }
 
       compileOptions {
@@ -135,3 +144,6 @@ class AndroidBasicConventionsPlugin : Plugin<Project> {
 
 private val AndroidBasicConventionsExtension.jvmTargetWithDefault
   get() = jvmTarget.convention(JavaVersion.VERSION_1_8).get()
+
+private val JavaVersion.toJvmTarget: JvmTarget
+  get() = if (isJava8) JvmTarget.fromTarget("1.8") else JvmTarget.fromTarget(majorVersion)
